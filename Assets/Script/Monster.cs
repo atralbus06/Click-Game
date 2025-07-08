@@ -13,11 +13,13 @@ public class Monster : MonoBehaviour
     float curHp;
 
     bool isDead = false;
+    Animator anim;
 
     void Awake()
     {
         curHp = maxHp;
         nameText.text = monsterName;
+        anim = GetComponent<Animator>();
     }
 
     public void OnHit(float damage)
@@ -28,15 +30,17 @@ public class Monster : MonoBehaviour
             curHp = 0;
             isDead = true;
         }
+        anim.SetTrigger("Hit");
         Debug.Log("Slime Hit! Current Hp : " + curHp);
         hpBar.ChangeHpBarAmount(curHp / maxHp);
 
         if (isDead)
         {
             Debug.Log("Slime is Dead");
-            hpBar.OnDestroy();
+            anim.SetTrigger("Death");
+            hpBar.Destroy();
             Destroy(nameText);
-            Destroy(gameObject);
+            Destroy(gameObject, 1.5f);
         }
 
     }

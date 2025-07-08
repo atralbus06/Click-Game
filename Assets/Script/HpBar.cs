@@ -12,7 +12,7 @@ public class HpBar : MonoBehaviour
         barImage.value = amount;
     }
 
-    public void OnDestroy()
+    public void Destroy()
     {
         Destroy(gameObject);
     }
